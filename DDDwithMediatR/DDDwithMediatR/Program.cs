@@ -1,3 +1,8 @@
+using DDDwithMediatR.Application_Layer.Mapping;
+using DDDwithMediatR.DataContext;
+using DDDwithMediatR.Extensions;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -6,6 +11,14 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+// Add Entity Framework
+builder.Services.AddDbContext<AdventureWorksDataContext>(options =>
+{
+    options.UseSqlServer(builder.Configuration.GetConnectionString("AdventureWorks"));
+});
+
+builder.Services.AddServiceCollectionExtensions();
 
 var app = builder.Build();
 
@@ -21,5 +34,10 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+
+//This code needs to be run only once for DB migration
+//await using var scope = app.Services.CreateAsyncScope();
+//using var db = scope.ServiceProvider.GetService<AdventureWorksDataContext>();
+//await db.Database.MigrateAsync();
 
 app.Run();
