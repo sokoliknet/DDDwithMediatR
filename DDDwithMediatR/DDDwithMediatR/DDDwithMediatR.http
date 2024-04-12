@@ -1,0 +1,6 @@
+@DDDwithMediatR_HostAddress = http://localhost:5085
+
+GET {{DDDwithMediatR_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
