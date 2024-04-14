@@ -5,3 +5,4 @@ DDDwithMediatR/DDDwithMediatR/bin/
 *.dll
 *.txt
 DDDwithMediatR/.vs/
+DDDwithMediatR/DDDwithMediatR/Migrations/

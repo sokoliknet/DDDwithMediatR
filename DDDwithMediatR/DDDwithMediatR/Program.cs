@@ -35,9 +35,4 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-//This code needs to be run only once for DB migration
-//await using var scope = app.Services.CreateAsyncScope();
-//using var db = scope.ServiceProvider.GetService<AdventureWorksDataContext>();
-//await db.Database.MigrateAsync();
-
 app.Run();

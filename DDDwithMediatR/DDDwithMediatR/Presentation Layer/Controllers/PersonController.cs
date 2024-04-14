@@ -36,9 +36,10 @@ namespace DDDwithMediatR.Controllers
         /// <response code="500">Internal Server Error</response>
         [HttpGet]
         [Route("{personName}")]
-        public ActionResult Get(string personName)
+        public IActionResult Get(string personName)
         {
             var result = _personService.GetPersonByName(personName);
+            if (result == null || result.Count() == 0) return BadRequest("User Not Found");
             return Ok(result);
         }
     }

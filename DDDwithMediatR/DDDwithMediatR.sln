@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.8.34309.116
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DDDwithMediatR", "DDDwithMediatR\DDDwithMediatR.csproj", "{7BB8FD69-B6EF-4242-BDE8-FB4CF72C3865}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DDDwithMediatR", "DDDwithMediatR\DDDwithMediatR.csproj", "{7BB8FD69-B6EF-4242-BDE8-FB4CF72C3865}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServicesTests", "ServicesTests\ServicesTests.csproj", "{DC115216-F1CF-4A02-9B94-71D01E5273AD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{7BB8FD69-B6EF-4242-BDE8-FB4CF72C3865}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7BB8FD69-B6EF-4242-BDE8-FB4CF72C3865}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7BB8FD69-B6EF-4242-BDE8-FB4CF72C3865}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DC115216-F1CF-4A02-9B94-71D01E5273AD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DC115216-F1CF-4A02-9B94-71D01E5273AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DC115216-F1CF-4A02-9B94-71D01E5273AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DC115216-F1CF-4A02-9B94-71D01E5273AD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
