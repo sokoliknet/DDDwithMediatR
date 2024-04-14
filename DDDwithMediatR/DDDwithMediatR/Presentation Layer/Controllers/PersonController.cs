@@ -1,6 +1,10 @@
-﻿using DDDwithMediatR.Application_Layer.Contracts;
+﻿using DDDwithMediatR.Application_Layer.Commands;
+using DDDwithMediatR.Application_Layer.Contracts;
 using DDDwithMediatR.Application_Layer.Dto;
+using DDDwithMediatR.Application_Layer.Queries;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace DDDwithMediatR.Controllers
 {
@@ -8,10 +12,11 @@ namespace DDDwithMediatR.Controllers
     [ApiController]
     public class PersonController : ControllerBase
     {
-        private readonly IPersonService _personService;
-        public PersonController(IPersonService personService)
+        private readonly IMediator _mediator;
+
+        public PersonController(IMediator mediator)
         {
-            _personService = personService;
+            _mediator = mediator;
         }
 
         /// <summary>
@@ -22,9 +27,9 @@ namespace DDDwithMediatR.Controllers
         /// <response code="200">Person created succesfully</response>
         /// <response code="500">Internal Server Error</response>
         [HttpPost]
-        public IActionResult Post([FromBody] PersonDto personDto)
+        public async Task<IActionResult> Post([FromBody] CreatePersonCommand command)
         {
-            var result = _personService.CreatePerson(personDto);
+            var result = await _mediator.Send(command);
             return Ok(result);
         }
 
@@ -35,11 +40,29 @@ namespace DDDwithMediatR.Controllers
         /// <response code="200">Person list by name returned succesfully</response>
         /// <response code="500">Internal Server Error</response>
         [HttpGet]
-        [Route("{personName}")]
-        public IActionResult Get(string personName)
+        [Route("get-persons")]
+        public async Task<IActionResult> GetPersons()
         {
-            var result = _personService.GetPersonByName(personName);
-            if (result == null || result.Count() == 0) return BadRequest("User Not Found");
+            var query = new GetAllPersonsQuery();
+            var result = await _mediator.Send(query);
+            return Ok(result);
+        }
+
+        /// <summary>
+        /// Get the list of Person objects
+        /// </summary>
+        /// <returns>List of PersonDto objects</returns>
+        /// <response code="200">Person list by name returned succesfully</response>
+        /// <response code="400">Person Not Found</response>
+        /// <response code="500">Internal Server Error</response>
+        [HttpGet]
+        [Route("person-by-name/{firstName}")]
+        public async Task<IActionResult> GetPersonsByName(string firstName)
+        {
+            var query = new GetPersonByNameQuery(firstName);
+            var result = await _mediator.Send(query);
+
+            if (result == null) return BadRequest("Person Not Found");
             return Ok(result);
         }
     }

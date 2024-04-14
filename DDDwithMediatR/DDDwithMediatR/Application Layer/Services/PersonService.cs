@@ -4,6 +4,7 @@ using DDDwithMediatR.Application_Layer.Dto;
 using DDDwithMediatR.Domain_Layer.Models;
 using DDDwithMediatR.Domain_Layer.Repository.Contracts;
 using DDDwithMediatR.Domain_Layer;
+using DDDwithMediatR.Application_Layer.Commands;
 
 namespace DDDwithMediatR.Services
 {
@@ -18,13 +19,19 @@ namespace DDDwithMediatR.Services
             _mapper = mapper;
         }
 
-        public IEnumerable<PersonDto> GetPersonByName(string name)
+        public IEnumerable<PersonDto> GetPersons()
         {
-            var result = _unitOfWork.PersonRepository.Find(x => x.FirstName.Contains(name)).ToList();
+            var result = _unitOfWork.PersonRepository.GetAll().ToList();
             return _mapper.Map<List<PersonDto>>(result);
         }
 
-        public PersonDto CreatePerson(PersonDto personDto)
+        public PersonDto GetPersonByName(string name)
+        {
+            var result = _unitOfWork.PersonRepository.Find(x => x.FirstName.Contains(name)).FirstOrDefault();
+            return _mapper.Map<PersonDto>(result);
+        }
+
+        public PersonDto CreatePerson(CreatePersonCommand command)
         {
             var businessEntity = new BusinessEntity();
             businessEntity.rowguid = Guid.NewGuid();
@@ -32,10 +39,10 @@ namespace DDDwithMediatR.Services
             _unitOfWork.BusinessEntityRepository.Add(businessEntity);
             _unitOfWork.Commit();
 
-            personDto.rowguid = Guid.NewGuid();
-            personDto.ModifiedDate = DateTime.UtcNow;
+            Person person = _mapper.Map<Person>(command);
 
-            Person person = _mapper.Map<Person>(personDto);
+            person.rowguid = Guid.NewGuid();
+            person.ModifiedDate = DateTime.UtcNow;
             person.BusinessEntityID = businessEntity.BusinessEntityID;
             _unitOfWork.PersonRepository.Add(person);
             _unitOfWork.Commit();

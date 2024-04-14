@@ -6,3 +6,6 @@ DDDwithMediatR/DDDwithMediatR/bin/
 *.txt
 DDDwithMediatR/.vs/
 DDDwithMediatR/DDDwithMediatR/Migrations/
+
+DDDwithMediatR/ServicesTests/obj/
+DDDwithMediatR/ServicesTests/bin/
