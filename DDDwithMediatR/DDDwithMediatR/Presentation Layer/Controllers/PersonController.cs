@@ -22,7 +22,7 @@ namespace DDDwithMediatR.Controllers
         /// <summary>
         /// Creates a new Person and BusinessEntity objects
         /// </summary>
-        /// <param name="personDto">The PersonDto object</param>
+        /// <param name="CreatePersonCommand">The CreatePersonCommand object</param>
         /// <returns>PersonDto object</returns>
         /// <response code="200">Person created succesfully</response>
         /// <response code="500">Internal Server Error</response>
